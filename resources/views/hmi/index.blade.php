@@ -243,13 +243,13 @@
                     <div class="col">
                         <div class="mb-3 row">
                             <div class="col text-center">
-                                <h4><span id="auto-status"></span></h4>
+                                <p><span id="auto-status"></span></p>
                             </div>
                             <div class="col text-center">
-                                <h4><span id="stable-status"></span></h4>
+                                <p><span id="stable-status"></span></p>
                             </div>
                             <div class="col text-center">
-                                <h4><span id="sent-status"></span></h4>
+                                <p><span id="sent-status"></span></p>
                             </div>
                             {{-- <span class="badge bg-gradient-success mx-1 ms-auto">Stable</span> --}}
                             {{-- <span class="badge bg-gradient-warning mx-1">Stand by</span> --}}
