@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/iot/favicon.png">
     <link rel="icon" type="image/png" href="/assets/img/iot/favicon.png">
     <title>
-        Torabika Weighing System
+        IOT Weighing System
     </title>
     {{-- <link
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Noto+Sans:300,400,500,600,700,800|PT+Mono:300,400,500,600,700"
