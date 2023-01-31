@@ -259,9 +259,15 @@
 
                                             <label>Password</label>
                                             <div class="mb-3">
-                                                <input type="password" name="password" class="form-control"
+                                                <input type="password" name="password"
+                                                    class="form-control @error('password') is-invalid @enderror"
                                                     placeholder="Enter your password">
                                             </div>
+                                            @error('password')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                             <div class="text-center">
                                                 <button type="submit"
                                                     class="btn btn-iot w-100 mt-4 mb-3">Login</button>
