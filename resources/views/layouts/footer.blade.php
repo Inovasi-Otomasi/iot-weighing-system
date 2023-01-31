@@ -5,7 +5,7 @@
                 <div class="copyright text-center text-xs text-muted text-lg-start">
                     Copyright
                     ©
-                    2022
+                    2023
                     <a href="https://www.iotech.co.id" class="text-secondary" target="_blank">PT Inovasi
                         Otomasi Teknologi</a>.
                 </div>

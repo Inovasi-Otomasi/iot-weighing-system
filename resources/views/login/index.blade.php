@@ -206,7 +206,7 @@
                                             </div>
                                         </div> --}}
                                         <div class="text-start position-absolute fixed-bottom ms-7">
-                                            <h6 class="text-white text-sm mb-5">Copyright © 2022 PT Inovasi Otomasi
+                                            <h6 class="text-white text-sm mb-5">Copyright © 2023 PT Inovasi Otomasi
                                                 Teknologi.</h6>
                                         </div>
                                     </div>
