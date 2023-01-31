@@ -232,7 +232,7 @@
                                     <div class="card-body">
                                         <form action="/login" method="post">
                                             @csrf
-                                            <label>Email Address</label>
+                                            {{-- <label>Email Address</label>
                                             <div class="mb-3">
                                                 <input type="email" name="email"
                                                     class="form-control @error('email') is-invalid @enderror"
@@ -243,7 +243,20 @@
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
+                                            @enderror --}}
+                                            <label>Username</label>
+                                            <div class="mb-3">
+                                                <input type="text" name="name"
+                                                    class="form-control @error('name') is-invalid @enderror"
+                                                    placeholder="Enter your username" autofocus
+                                                    value="{{ old('name') }}" required>
+                                            </div>
+                                            @error('name')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
                                             @enderror
+
                                             <label>Password</label>
                                             <div class="mb-3">
                                                 <input type="password" name="password" class="form-control"
