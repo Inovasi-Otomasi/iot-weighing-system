@@ -27,6 +27,15 @@
                         <span class="nav-link-text ms-1">Setup</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link  {{ Request::is('admin_view') ? 'active' : '' }}" href="/admin_view">
+                        <div
+                            class="{{ Request::is('admin_view') ? 'text-primary' : '' }} icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                            <i class="fa-solid fa-gauge"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Admin View</span>
+                    </a>
+                </li>
             @endif
 
             {{-- <li class="nav-item">
@@ -38,15 +47,7 @@
                     <span class="nav-link-text ms-1">SKU</span>
                 </a>
             </li> --}}
-            <li class="nav-item">
-                <a class="nav-link  {{ Request::is('admin_view') ? 'active' : '' }}" href="/admin_view">
-                    <div
-                        class="{{ Request::is('admin_view') ? 'text-primary' : '' }} icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
-                        <i class="fa-solid fa-gauge"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Admin View</span>
-                </a>
-            </li>
+
             @if (auth()->user()->role == 'operator')
                 <li class="nav-item">
                     <a class="nav-link  {{ Request::is('hmi') && request('hmi') == 1 ? 'active' : '' }}"
