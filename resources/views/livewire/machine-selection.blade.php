@@ -17,6 +17,9 @@
         class="btn btn-outline-iot w-100 {{ $user == 'QC' ? 'active' : '' }}">QC</button> --}}
 
     <h5 class="card-title text-center">MACHINE : {{ $machine_name }}</h5>
+    <div class="my-3">
+        <input wire:model="machine_search" type="text" class="form-control">
+    </div>
     <div class="row overflow-auto" style="max-height:250px;">
         @foreach ($machines as $machine_row)
             <div class="col-6">

@@ -11,6 +11,7 @@ class MachineSelection extends Component
     public $machine;
     public $machine_name;
     public $hmi;
+    public $machine_search;
 
     protected $queryString = ['machine', 'hmi'];
     protected $listeners = ['updateMachineSelection', 'updateHmiSelection'];
@@ -44,7 +45,7 @@ class MachineSelection extends Component
         if ($this->hmi) {
             $hmi = Hmi::where('id', $this->hmi)->first();
             $data = [
-                'machines' => Machine::where('line_id', $hmi->line_id)->get()
+                'machines' => Machine::where('line_id', $hmi->line_id)->where('machine_name', 'like', '%' . $this->machine_search . '%')->orderBy('machine_name','asc')->get()
             ];
         }
 

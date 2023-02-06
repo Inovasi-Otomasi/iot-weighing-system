@@ -111,7 +111,7 @@
             </ul>
         </div>
     </div> --}}
-    <div class=" flex-wrap mt-3">
+    {{-- <div class=" flex-wrap mt-3">
         <div class="dropdown mb-2">
             <button class="w-100 btn btn-outline-iot mb-0 dropdown-toggle" type="button" id="dropdown-hmi"
                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -121,7 +121,7 @@
                 @livewire('dropdown-search', ['parameter' => 'hmi'])
             </ul>
         </div>
-    </div>
+    </div> --}}
     <div class=" flex-wrap mt-3">
         <div class="dropdown mb-2">
             <button class="w-100 btn btn-outline-iot mb-0 dropdown-toggle" type="button" id="dropdown-sku"

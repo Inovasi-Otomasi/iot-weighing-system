@@ -39,12 +39,48 @@
                 </a>
             </li> --}}
             <li class="nav-item">
-                <a class="nav-link  {{ Request::is('hmi') ? 'active' : '' }}" href="/hmi">
+                <a class="nav-link  {{ Request::is('hmi') && request('hmi')==1 ? 'active' : '' }}" href="/hmi?hmi=1">
                     <div
-                        class="{{ Request::is('hmi') ? 'text-primary' : '' }} icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                        class="{{ Request::is('hmi') && request('hmi')==1 ? 'text-primary' : '' }} icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
                         <i class="fa-solid fa-gauge"></i>
                     </div>
-                    <span class="nav-link-text ms-1">HMI</span>
+                    <span class="nav-link-text ms-1">HMI 1</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link  {{ Request::is('hmi') && request('hmi')==2 ? 'active' : '' }}" href="/hmi?hmi=2">
+                    <div
+                        class="{{ Request::is('hmi') && request('hmi')==2 ? 'text-primary' : '' }} icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                        <i class="fa-solid fa-gauge"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">HMI 2</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link  {{ Request::is('hmi') && request('hmi')==3 ? 'active' : '' }}" href="/hmi?hmi=3">
+                    <div
+                        class="{{ Request::is('hmi') && request('hmi')==3 ? 'text-primary' : '' }} icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                        <i class="fa-solid fa-gauge"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">HMI 3</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link  {{ Request::is('hmi') && request('hmi')==4 ? 'active' : '' }}" href="/hmi?hmi=4">
+                    <div
+                        class="{{ Request::is('hmi') && request('hmi')==4 ? 'text-primary' : '' }} icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                        <i class="fa-solid fa-gauge"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">HMI 4</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link  {{ Request::is('hmi') && request('hmi')==5 ? 'active' : '' }}" href="/hmi?hmi=5">
+                    <div
+                        class="{{ Request::is('hmi') && request('hmi')==5 ? 'text-primary' : '' }} icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                        <i class="fa-solid fa-gauge"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">HMI 5</span>
                 </a>
             </li>
             {{-- <li class="nav-item">

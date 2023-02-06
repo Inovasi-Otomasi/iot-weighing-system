@@ -530,12 +530,12 @@ class DatatablesController extends Controller
                 $collection = $collection->where('machine_name', $machine_name);
                 // $collection = $collection->where('machine_name', $machine);
             }
-            if ($hmi) {
-                $hmi_name = Hmi::where('id', $hmi)->first()->hmi_name;
-                $collection = $collection->where('hmi_name', $hmi_name);
-                // $collection = $collection->where('machine_name', $machine);
-            }
-            $collection = $collection->where('created_at', '>=', Carbon::now()->subDays(1));
+            // if ($hmi) {
+            //     $hmi_name = Hmi::where('id', $hmi)->first()->hmi_name;
+            //     $collection = $collection->where('hmi_name', $hmi_name);
+            //     // $collection = $collection->where('machine_name', $machine);
+            // }
+            $collection = $collection->where('created_at', '>=', Carbon::now()->subDays(30));
         } else {
             if ($line) {
                 // $line_name = Line::where('id', $line)->first()->line_name;
