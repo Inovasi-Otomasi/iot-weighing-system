@@ -651,6 +651,54 @@
             });
             // console.log(tableUpdated)
         @endif
+        @if (Request::is('admin_view'))
+            $(document).ready(function() {
+                let getAdminView = function() {
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ url('live_admin_view') }}',
+                        async: true,
+                        dataType: 'json',
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                        },
+                        success: function(data) {
+
+                            data.forEach(function(item) {
+
+                                let percentage_html = `
+                            <span class="text-sm text-${item.percentage_result.color} font-weight-bolder">
+                                <i class="fa fa-chevron-${item.percentage_result.arrow} text-xs me-1" aria-hidden="true"></i>
+                                <span>${item.percentage_result.percentage}</span> %
+                            </span>
+                            <span class="text-sm ms-1">from ${item.percentage_result.target} gram (target).</span>`;
+
+                                let weight_status = `
+                                <span class="text-${item.percentage_result.color}">${item.weight_status}</span>
+                            `;
+
+                                let pic_detail = `
+                                ${item.pic} (${item.nik})
+                                `;
+                                $('#actual-weight-' + item.id).html(item.actual_weight);
+                                $('#percentage-from-target-' + item.id).html(
+                                    percentage_html);
+                                $('#weight-status-' + item.id).html(weight_status);
+                                $('#machine-' + item.id).html(item.machine);
+                                $('#sku-' + item.id).html(item.sku);
+                                $('#operator-' + item.id).html(item.user);
+                                $('#pic-' + item.id).html(pic_detail);
+
+                            })
+
+
+                        }
+                    });
+                }
+                getAdminView();
+                setInterval(getAdminView, 1000);
+            });
+        @endif
     </script>
     <!-- Github buttons -->
     <!-- Control Center for Corporate UI Dashboard: parallax effects, scripts for the example pages etc -->

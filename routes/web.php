@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminViewController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DatatablesController;
 use App\Http\Controllers\LoginController;
@@ -22,6 +23,9 @@ Route::get('/export', [DashboardController::class, 'export'])->name('export')->m
 //setup
 Route::get('/setup', [SetupController::class, 'index'])->middleware('auth');
 Route::get('/sku', [SetupController::class, 'sku'])->middleware('auth');
+//admin view
+Route::get('/admin_view', [AdminViewController::class, 'index'])->middleware('auth');
+Route::post('/live_admin_view', [AdminViewController::class, 'liveAdminView'])->middleware('auth');
 //HMI
 Route::get('/hmi', [HMIController::class, 'index'])->name('hmi')->middleware('auth');
 Route::post('/live_hmi', [HMIController::class, 'liveHMI'])->middleware('auth');

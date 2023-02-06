@@ -30,7 +30,7 @@ class HMIController extends Controller
         //     abort(403);
         // }
         $data = [
-            'title' => 'HMI',
+            'title' => 'HMI ' . $request->input('hmi'),
             'breadcrumb' => 'Dashboard',
             'lines' => Line::all(),
             'machines' => Machine::all(),
