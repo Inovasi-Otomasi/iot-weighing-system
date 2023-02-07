@@ -39,7 +39,7 @@ RUN composer install
 RUN composer du
 
 RUN php artisan key:generate
-RUN php artisan migrate:refresh --seed
+# RUN php artisan migrate:refresh --seed
 RUN php artisan optimize
 RUN php artisan cache:clear
 RUN php artisan view:clear
