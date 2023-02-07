@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Charts\GeneralChart;
 use App\Exports\HistoricalLogExport;
 use App\Models\Historical;
+use App\Models\Hmi;
 use App\Models\Line;
 use App\Models\Machine;
 use App\Models\Shift;
@@ -20,7 +21,13 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         if (auth()->user()->role !== 'admin') {
-            return redirect()->route('hmi');
+            $hmi_list = Hmi::all();
+            foreach ($hmi_list as $hmi) {
+                if (auth()->user()->role == 'hmi' . $hmi->id) {
+                    return redirect()->route('hmi', ['hmi' => $hmi->id]);
+                }
+            }
+            // return redirect()->route('hmi');
         }
         $data = [
             'title' => 'Home',

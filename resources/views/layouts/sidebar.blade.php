@@ -36,6 +36,16 @@
                         <span class="nav-link-text ms-1">Admin View</span>
                     </a>
                 </li>
+            @else
+                <li class="nav-item">
+                    <a class="nav-link  {{ Request::is('hmi') ? 'active' : '' }}" href="/hmi?hmi=1">
+                        <div
+                            class="{{ Request::is('hmi') ? 'text-primary' : '' }} icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                            <i class="fa-solid fa-gauge"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">HMI</span>
+                    </a>
+                </li>
             @endif
 
             {{-- <li class="nav-item">
@@ -48,7 +58,7 @@
                 </a>
             </li> --}}
 
-            @if (auth()->user()->role == 'operator')
+            {{-- @if (auth()->user()->role == 'operator')
                 <li class="nav-item">
                     <a class="nav-link  {{ Request::is('hmi') && request('hmi') == 1 ? 'active' : '' }}"
                         href="/hmi?hmi=1">
@@ -99,7 +109,7 @@
                         <span class="nav-link-text ms-1">HMI 5</span>
                     </a>
                 </li>
-            @endif
+            @endif --}}
             {{-- <li class="nav-item">
                 <a class="nav-link  {{ Request::is('devices*') ? 'active' : '' }}" href="/devices">
                     <div

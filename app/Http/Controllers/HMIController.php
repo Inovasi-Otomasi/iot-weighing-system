@@ -26,9 +26,23 @@ class HMIController extends Controller
     {
         // $role = auth()->user()->role;
         // dd($role);
+        if (auth()->user()->role == 'admin') {
+            return redirect()->route('admin_view');
+        }
         // if (auth()->user()->role !== 'admin') {
-        //     abort(403);
+        // if (!$request->input('hmi')) {
+        $hmi_list = Hmi::all();
+        foreach ($hmi_list as $hmi) {
+            if (auth()->user()->role == 'hmi' . $hmi->id) {
+                if ($request->input('hmi') != $hmi->id)
+                    return redirect()->route('hmi', ['hmi' => $hmi->id]);
+            }
+        }
         // }
+
+        //     return redirect()->route('hmi');
+        // }
+
         $data = [
             'title' => 'HMI ' . $request->input('hmi'),
             'breadcrumb' => 'Dashboard',

@@ -18,13 +18,13 @@ use App\Http\Controllers\HMIController;
 |
 */
 
-Route::get('/', [DashboardController::class, 'index'])->middleware('auth');
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 Route::get('/export', [DashboardController::class, 'export'])->name('export')->middleware('auth');
 //setup
 Route::get('/setup', [SetupController::class, 'index'])->middleware('auth');
 Route::get('/sku', [SetupController::class, 'sku'])->middleware('auth');
 //admin view
-Route::get('/admin_view', [AdminViewController::class, 'index'])->middleware('auth');
+Route::get('/admin_view', [AdminViewController::class, 'index'])->name('admin_view')->middleware('auth');
 Route::post('/live_admin_view', [AdminViewController::class, 'liveAdminView'])->middleware('auth');
 //HMI
 Route::get('/hmi', [HMIController::class, 'index'])->name('hmi')->middleware('auth');
