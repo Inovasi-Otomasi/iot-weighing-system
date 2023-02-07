@@ -686,7 +686,7 @@
                                 $('#weight-status-' + item.id).html(weight_status);
                                 $('#machine-' + item.id).html(item.machine);
                                 $('#sku-' + item.id).html(item.sku);
-                                $('#operator-' + item.id).html(item.user);
+                                $('#user-' + item.id).html(item.user);
                                 $('#pic-' + item.id).html(pic_detail);
 
                             })
