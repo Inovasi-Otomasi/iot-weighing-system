@@ -36,6 +36,7 @@ return new class extends Migration
             $table->foreignIdFor(Sku::class)->nullable();
             $table->foreignIdFor(Pic::class)->nullable();
             $table->string('user')->nullable();
+            $table->string('ip_address')->nullable();
             $table->timestamps();
         });
     }
