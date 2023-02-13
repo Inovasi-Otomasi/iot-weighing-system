@@ -1,8 +1,13 @@
-######MYSQL########
+######Mariadb########
 # Pake official image lsg
-docker run --name some-mysql -p 33069:3306 -e MYSQL_ROOT_PASSWORD=sangatrahasia -d --restart unless-stopped mysql:latest
+docker run --name some-mariadb -p 33069:3306 -e MYSQL_ROOT_PASSWORD=sangatrahasia -d --restart unless-stopped -v mariadb-conf:/etc/mysql/conf.d mariadb:latest
 # Buat user baru untuk remote access
+docker exec -it some-mariadb bash
 
+mysql -u root -p
+create user 'admin'@'%' identified by 'adminiot';
+grant all privileges on *.* to 'admin'@'%' with grant option;
+flush privileges;
 
 ####LARAVEL#########
 # Build docker image
