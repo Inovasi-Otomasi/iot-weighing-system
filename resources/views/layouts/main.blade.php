@@ -492,6 +492,7 @@
             let tableUpdated = false;
             document.addEventListener("DOMContentLoaded", () => {
                 Livewire.hook('message.sent', (message, component) => {
+                    // console.log(message.updateQueue[0].payload.method);
                     if (message.updateQueue[0].payload.method === 'updateMachine') {
                         machineWire = message.updateQueue[0].payload.params[0];
                         tableUpdated = true;
@@ -651,7 +652,19 @@
                     if (keyPressed.keyCode == 77 && keyPressed.ctrlKey) {
                         $("#machine_search").focus();
                         // keyPressed.preventDefault();
+                    } else if (keyPressed.keyCode == 83 && keyPressed.ctrlKey && keyPressed.shiftKey) {
+                        $('#dropdown-sku').click();
+                        $('#sku-search').focus();
+                    } else if (keyPressed.keyCode == 88 && keyPressed.ctrlKey && keyPressed.shiftKey) {
+                        $('#dropdown-pic').click();
+                        $('#pic-search').focus();
                     }
+                });
+                $('#dropdown-sku').click(function() {
+                    $('#sku-search').focus();
+                });
+                $('#dropdown-pic').click(function() {
+                    $('#pic-search').focus();
                 });
             });
             // console.log(tableUpdated)

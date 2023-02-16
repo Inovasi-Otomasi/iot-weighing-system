@@ -1,6 +1,6 @@
 @if ($parameter == 'sku')
     <div>
-        <li class="mb-1 sticky-top"><input wire:model="sku_search" type="text" class="form-control">
+        <li class="mb-1 sticky-top"><input wire:model="sku_search" id="sku-search" type="text" class="form-control">
         </li>
         <div class="overflow-auto" style="max-height: 280px;">
             @foreach ($sku_list as $sku_row)
@@ -42,7 +42,7 @@
     </div>
 @elseif ($parameter == 'pic')
     <div>
-        <li class="mb-1"><input wire:model="pic_search" type="text" class="form-control">
+        <li class="mb-1"><input wire:model="pic_search" id="pic-search" type="text" class="form-control">
         </li>
         <div class="overflow-auto" style="max-height: 280px;">
             @foreach ($pic_list as $pic_row)
