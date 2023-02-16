@@ -1,11 +1,14 @@
 @if ($parameter == 'sku')
     <div>
-        <li class="mb-1"><input wire:model="sku_search" type="text" class="form-control">
+        <li class="mb-1 sticky-top"><input wire:model="sku_search" type="text" class="form-control">
         </li>
-        @foreach ($sku_list as $sku_row)
-            <li wire:click="updateSku('{{ $sku_row->id }}')"><span class="dropdown-item">{{ $sku_row->sku_name }}</span>
-            </li>
-        @endforeach
+        <div class="overflow-auto" style="max-height: 280px;">
+            @foreach ($sku_list as $sku_row)
+                <li wire:click="updateSku('{{ $sku_row->id }}')"><span
+                        class="dropdown-item">{{ $sku_row->sku_name }}</span>
+                </li>
+            @endforeach
+        </div>
     </div>
 @elseif ($parameter == 'line')
     <div>
@@ -41,11 +44,13 @@
     <div>
         <li class="mb-1"><input wire:model="pic_search" type="text" class="form-control">
         </li>
-        @foreach ($pic_list as $pic_row)
-            <li wire:click="updatePic('{{ $pic_row->id }}')"><span class="dropdown-item">{{ $pic_row->pic_name }}
-                    ({{ $pic_row->nik }})
-                </span>
-            </li>
-        @endforeach
+        <div class="overflow-auto" style="max-height: 280px;">
+            @foreach ($pic_list as $pic_row)
+                <li wire:click="updatePic('{{ $pic_row->id }}')"><span class="dropdown-item">{{ $pic_row->pic_name }}
+                        ({{ $pic_row->nik }})
+                    </span>
+                </li>
+            @endforeach
+        </div>
     </div>
 @endif

@@ -128,7 +128,7 @@
                 data-bs-toggle="dropdown" aria-expanded="false">
                 SKU : {{ $sku_name ?: 'Not Selected' }}
             </button>
-            <ul class="dropdown-menu overflow-auto" aria-labelledby="dropdown-sku" style="max-height: 280px;">
+            <ul class="dropdown-menu" aria-labelledby="dropdown-sku">
                 @livewire('dropdown-search', ['parameter' => 'sku'])
             </ul>
         </div>
@@ -139,7 +139,7 @@
                 data-bs-toggle="dropdown" aria-expanded="false">
                 PIC : {{ $pic_name ?: 'Not Selected' }} {{ $pic_nik ? '(' . $pic_nik . ')' : '' }}
             </button>
-            <ul class="dropdown-menu overflow-auto" aria-labelledby="dropdown-pic" style="max-height: 280px;">
+            <ul class="dropdown-menu" aria-labelledby="dropdown-pic">
                 @livewire('dropdown-search', ['parameter' => 'pic'])
             </ul>
         </div>

@@ -648,9 +648,9 @@
                 setInterval(updateTable, 500)
 
                 $(document).keydown(function(keyPressed) {
-                    if (keyPressed.keyCode == 77) {
+                    if (keyPressed.keyCode == 77 && keyPressed.ctrlKey) {
                         $("#machine_search").focus();
-                        keyPressed.preventDefault();
+                        // keyPressed.preventDefault();
                     }
                 });
             });
