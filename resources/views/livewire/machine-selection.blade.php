@@ -18,7 +18,7 @@
 
     <h5 class="card-title text-center">MACHINE : {{ $machine_name }}</h5>
     <div class="my-3">
-        <input wire:model="machine_search" type="text" class="form-control">
+        <input wire:model="machine_search" type="text" class="form-control" id="machine_search">
     </div>
     <div class="row overflow-auto" style="max-height:250px;">
         @foreach ($machines as $machine_row)

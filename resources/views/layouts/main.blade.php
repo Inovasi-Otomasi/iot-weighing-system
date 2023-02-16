@@ -647,7 +647,12 @@
                 }
                 setInterval(updateTable, 500)
 
-
+                $(document).keydown(function(keyPressed) {
+                    if (keyPressed.keyCode == 77) {
+                        $("#machine_search").focus();
+                        keyPressed.preventDefault();
+                    }
+                });
             });
             // console.log(tableUpdated)
         @endif

@@ -43,7 +43,8 @@
         </li>
         @foreach ($pic_list as $pic_row)
             <li wire:click="updatePic('{{ $pic_row->id }}')"><span class="dropdown-item">{{ $pic_row->pic_name }}
-                    ({{ $pic_row->nik }})</span>
+                    ({{ $pic_row->nik }})
+                </span>
             </li>
         @endforeach
     </div>
