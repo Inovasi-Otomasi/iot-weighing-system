@@ -95,6 +95,7 @@ class HMIController extends Controller
             $percentage_result['auto'] = $hmi->auto;
             $percentage_result['stable'] = $hmi->stable;
             $percentage_result['sending'] = $hmi->sending;
+            $percentage_result['timeout'] = $hmi->timeout;
         }
 
 

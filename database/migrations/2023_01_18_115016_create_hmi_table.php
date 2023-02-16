@@ -27,6 +27,7 @@ return new class extends Migration
             $table->integer('auto')->default(0);
             $table->integer('stable')->default(0);
             $table->integer('sending')->default(0);
+            $table->integer('timeout')->default(0);
             $table->double('hmi_th')->default(0);
             $table->string('status')->default('UNDER');
             // $table->string('line_name')->nullable();

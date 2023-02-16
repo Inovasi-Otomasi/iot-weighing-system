@@ -251,6 +251,9 @@
                             <div class="col text-center">
                                 <p><span id="sent-status"></span></p>
                             </div>
+                            <div class="col text-center">
+                                <p><span id="timeout-status"></span></p>
+                            </div>
                             {{-- <span class="badge bg-gradient-success mx-1 ms-auto">Stable</span> --}}
                             {{-- <span class="badge bg-gradient-warning mx-1">Stand by</span> --}}
                             {{-- <span class="badge bg-gradient-secondary mx-1">Manual</span> --}}

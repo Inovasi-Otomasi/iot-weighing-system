@@ -563,6 +563,7 @@
                                     `<span class="badge bg-gradient-success">Auto</span>`;
                             }
 
+
                             let sending_html =
                                 `<span class="badge bg-gradient-warning">Reading</span>`;
                             if (data.percentage_result.sending) {
@@ -578,12 +579,20 @@
                                 }
                             }
 
+                            let timeout_html =
+                                `<span class="badge bg-gradient-success">Sync</span>`;
+                            if (data.percentage_result.timeout) {
+                                timeout_html =
+                                    `<span class="badge bg-gradient-danger">Timeout</span>`;
+                            }
+
                             $('#actual-weight').html(data.actual_weight);
                             $('#percentage-from-target').html(percentage_html);
                             $('#weight-status').html(weight_status);
                             $('#stable-status').html(stable_html);
                             $('#auto-status').html(auto_html);
                             $('#sent-status').html(sending_html);
+                            $('#timeout-status').html(timeout_html);
                         }
                     });
                 }
