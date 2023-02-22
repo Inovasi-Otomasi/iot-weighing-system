@@ -36,8 +36,8 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('adminiot')
         ]);
         User::Create([
-            'name' => 'operator',
-            'email' => 'operator@iotech.co.id',
+            'name' => 'operator1',
+            'email' => 'operator1@iotech.co.id',
             'role' => 'hmi1',
             'password' => Hash::make('operator')
         ]);
