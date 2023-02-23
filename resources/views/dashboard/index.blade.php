@@ -212,6 +212,7 @@
                                 <th>Created At</th>
                                 <th>Working Date</th>
                                 <th>Line Name</th>
+                                <th>HMI</th>
                                 <th>Machine Name</th>
                                 <th>Shift</th>
                                 <th>Group</th>

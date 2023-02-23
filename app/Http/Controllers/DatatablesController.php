@@ -501,18 +501,19 @@ class DatatablesController extends Controller
             0 => 'created_at',
             1 => 'working_date',
             2 => 'line_name',
-            3 => 'machine_name',
-            4 => 'shift_name',
-            5 => 'shift_group',
+            3 => 'hmi_name',
+            4 => 'machine_name',
+            5 => 'shift_name',
+            6 => 'shift_group',
             // 6 => 'hmi_name',
-            6 => 'sku_name',
-            7 => 'weight',
+            7 => 'sku_name',
+            8 => 'weight',
             // 9 => 'target',
             // 10 => 'th_H',
             // 11 => 'th_L',
-            8 => 'status',
-            9 => 'user',
-            10 => 'pic',
+            9 => 'status',
+            10 => 'user',
+            11 => 'pic',
         );
         // $collection = DB::table('historical_log')->with(['sku', 'machine', 'line', 'shift']);
 
@@ -643,6 +644,7 @@ class DatatablesController extends Controller
                 // $nestedData[] = $row->created_at->format('Y-m-d H:i:s');
                 $nestedData[] = $row->working_date;
                 $nestedData[] = $row->line_name;
+                $nestedData[] = $row->hmi_name;
                 $nestedData[] = $row->machine_name;
                 $nestedData[] = $row->shift_name;
                 $nestedData[] = $row->shift_group;

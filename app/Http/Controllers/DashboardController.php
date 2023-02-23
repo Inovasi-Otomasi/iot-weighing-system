@@ -452,6 +452,7 @@ class DashboardController extends Controller
         $machine = $request->input('machine');
         $shift = $request->input('shift');
         $sku = $request->input('sku');
+        $hmi = $request->input('hmi');
         $parameters_log_ranged = [];
         // $parameters_log = App::make(DynamicModel::class, ['table_name' => 'device_' . $request->device_id . '_log']);
         $parameters_log = new Historical();
@@ -474,6 +475,11 @@ class DashboardController extends Controller
             // $sku_name = Sku::where('id', $sku)->first()->sku_name;
             // $parameters_log = $parameters_log->where('sku_name', $sku_name);
             $parameters_log = $parameters_log->where('sku_id', $sku);
+        }
+        if ($hmi) {
+            // $sku_name = Sku::where('id', $sku)->first()->sku_name;
+            // $parameters_log = $parameters_log->where('sku_name', $sku_name);
+            $parameters_log = $parameters_log->where('hmi_name', $hmi);
         }
         if ($from && $to) {
             $from = date("Y-m-d H:i:s", $from);

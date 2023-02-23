@@ -7,16 +7,36 @@
                         Line : {{ $line ?: 'All' }}
                     </button>
                     <input type="text" value="{{ $line }}" name="line" hidden>
-                    <ul class="dropdown-menu overflow-auto {{ $line_search ? 'show' : '' }}"
-                        aria-labelledby="dropdown-line" style="max-height: 280px;">
+                    <ul class="dropdown-menu {{ $line_search ? 'show' : '' }}" aria-labelledby="dropdown-line">
                         <li class="mb-1"><input wire:model="line_search" type="text" class="form-control">
                         </li>
-                        <li><span class="dropdown-item" wire:click="filterLine('')">All</span></li>
-                        @foreach ($line_list as $line_row)
-                            <li><span class="dropdown-item"
-                                    wire:click="filterLine('{{ $line_row->line_name }}')">{{ $line_row->line_name }}</span>
-                            </li>
-                        @endforeach
+                        <div class="overflow-auto" style="max-height: 280px;">
+                            <li><span class="dropdown-item" wire:click="filterLine('')">All</span></li>
+                            @foreach ($line_list as $line_row)
+                                <li><span class="dropdown-item"
+                                        wire:click="filterLine('{{ $line_row->line_name }}')">{{ $line_row->line_name }}</span>
+                                </li>
+                            @endforeach
+                        </div>
+                    </ul>
+                </div>
+                <div class="dropdown me-3 mb-2">
+                    <button class="btn btn-outline-iot mb-0 dropdown-toggle" type="button" id="dropdown-hmi"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        HMI : {{ $hmi ?: 'All' }}
+                    </button>
+                    <input type="text" value="{{ $hmi }}" name="hmi" hidden>
+                    <ul class="dropdown-menu {{ $hmi_search ? 'show' : '' }}" aria-labelledby="dropdown-line">
+                        <li class="mb-1"><input wire:model="hmi_search" type="text" class="form-control">
+                        </li>
+                        <div class="overflow-auto" style="max-height: 280px;">
+                            <li><span class="dropdown-item" wire:click="filterHmi('')">All</span></li>
+                            @foreach ($hmi_list as $hmi_row)
+                                <li><span class="dropdown-item"
+                                        wire:click="filterHmi('{{ $hmi_row->hmi_name }}')">{{ $hmi_row->hmi_name }}</span>
+                                </li>
+                            @endforeach
+                        </div>
                     </ul>
                 </div>
                 <div class="dropdown me-3 mb-2">
@@ -25,16 +45,17 @@
                         Machine : {{ $machine ?: 'All' }}
                     </button>
                     <input type="text" value="{{ $machine }}" name="machine" hidden>
-                    <ul class="dropdown-menu overflow-auto {{ $machine_search ? 'show' : '' }}"
-                        aria-labelledby="dropdown-machine" style="max-height: 280px;">
+                    <ul class="dropdown-menu {{ $machine_search ? 'show' : '' }}" aria-labelledby="dropdown-machine">
                         <li class="mb-1"><input wire:model="machine_search" type="text" class="form-control">
                         </li>
-                        <li><span class="dropdown-item" wire:click="filterMachine('')">All</span></li>
-                        @foreach ($machine_list as $machine_row)
-                            <li><span class="dropdown-item"
-                                    wire:click="filterMachine('{{ $machine_row->machine_name }}')">{{ $machine_row->machine_name }}</span>
-                            </li>
-                        @endforeach
+                        <div class="overflow-auto" style="max-height: 280px;">
+                            <li><span class="dropdown-item" wire:click="filterMachine('')">All</span></li>
+                            @foreach ($machine_list as $machine_row)
+                                <li><span class="dropdown-item"
+                                        wire:click="filterMachine('{{ $machine_row->machine_name }}')">{{ $machine_row->machine_name }}</span>
+                                </li>
+                            @endforeach
+                        </div>
                     </ul>
                 </div>
                 <div class="dropdown me-3 mb-2">
@@ -43,16 +64,17 @@
                         SKU : {{ $sku ?: 'All' }}
                     </button>
                     <input type="text" value="{{ $sku }}" name="sku" hidden>
-                    <ul class="dropdown-menu overflow-auto {{ $sku_search ? 'show' : '' }}"
-                        aria-labelledby="dropdown-sku" style="max-height: 280px;">
+                    <ul class="dropdown-menu {{ $sku_search ? 'show' : '' }}" aria-labelledby="dropdown-sku">
                         <li class="mb-1"><input wire:model="sku_search" type="text" class="form-control">
                         </li>
-                        <li><span class="dropdown-item" wire:click="filterSku('')">All</span></li>
-                        @foreach ($sku_list as $sku_row)
-                            <li><span class="dropdown-item"
-                                    wire:click="filterSku('{{ $sku_row->sku_name }}')">{{ $sku_row->sku_name }}</span>
-                            </li>
-                        @endforeach
+                        <div class="overflow-auto" style="max-height: 280px;">
+                            <li><span class="dropdown-item" wire:click="filterSku('')">All</span></li>
+                            @foreach ($sku_list as $sku_row)
+                                <li><span class="dropdown-item"
+                                        wire:click="filterSku('{{ $sku_row->sku_name }}')">{{ $sku_row->sku_name }}</span>
+                                </li>
+                            @endforeach
+                        </div>
                     </ul>
                 </div>
                 <div class="dropdown me-3 mb-2">
@@ -62,16 +84,17 @@
                         {{ $shift ? $shift : 'All' }}
                     </button>
                     <input type="text" value="{{ $shift }}" name="shift" hidden>
-                    <ul class="dropdown-menu overflow-auto {{ $shift_search ? 'show' : '' }}"
-                        aria-labelledby="dropdown-shift" style="max-height: 280px;">
+                    <ul class="dropdown-menu {{ $shift_search ? 'show' : '' }}" aria-labelledby="dropdown-shift">
                         <li class="mb-1"><input wire:model="shift_search" type="text" class="form-control">
                         </li>
-                        <li><span class="dropdown-item" wire:click="filterShift('')">All</span></li>
-                        @foreach ($shift_list as $shift_row)
-                            <li><span class="dropdown-item"
-                                    wire:click="filterShift('{{ $shift_row->shift_name }}')">{{ $shift_row->shift_name }}</span>
-                            </li>
-                        @endforeach
+                        <div class="overflow-auto" style="max-height: 280px;">
+                            <li><span class="dropdown-item" wire:click="filterShift('')">All</span></li>
+                            @foreach ($shift_list as $shift_row)
+                                <li><span class="dropdown-item"
+                                        wire:click="filterShift('{{ $shift_row->shift_name }}')">{{ $shift_row->shift_name }}</span>
+                                </li>
+                            @endforeach
+                        </div>
                     </ul>
                 </div>
                 <div class="dropdown me-3 mb-2">
@@ -81,16 +104,17 @@
                         {{ $group ? $group : 'All' }}
                     </button>
                     <input type="text" value="{{ $group }}" name="group" hidden>
-                    <ul class="dropdown-menu overflow-auto {{ $group_search ? 'show' : '' }}"
-                        aria-labelledby="dropdown-group" style="max-height: 280px;">
+                    <ul class="dropdown-menu {{ $group_search ? 'show' : '' }}" aria-labelledby="dropdown-group">
                         <li class="mb-1"><input wire:model="group_search" type="text" class="form-control">
                         </li>
-                        <li><span class="dropdown-item" wire:click="filterGroup('')">All</span></li>
-                        @foreach ($group_list as $group_row)
-                            <li><span class="dropdown-item"
-                                    wire:click="filterGroup('{{ $group_row->shift_group }}')">{{ $group_row->shift_group }}</span>
-                            </li>
-                        @endforeach
+                        <div class="overflow-auto" style="max-height: 280px;">
+                            <li><span class="dropdown-item" wire:click="filterGroup('')">All</span></li>
+                            @foreach ($group_list as $group_row)
+                                <li><span class="dropdown-item"
+                                        wire:click="filterGroup('{{ $group_row->shift_group }}')">{{ $group_row->shift_group }}</span>
+                                </li>
+                            @endforeach
+                        </div>
                     </ul>
                 </div>
                 <div class="dropdown me-3 mb-2">
@@ -100,16 +124,17 @@
                         {{ $user ? $user : 'All' }}
                     </button>
                     <input type="text" value="{{ $user }}" name="user" hidden>
-                    <ul class="dropdown-menu overflow-auto {{ $user_search ? 'show' : '' }}"
-                        aria-labelledby="dropdown-user" style="max-height: 280px;">
+                    <ul class="dropdown-menu {{ $user_search ? 'show' : '' }}" aria-labelledby="dropdown-user">
                         <li class="mb-1"><input wire:model="user_search" type="text" class="form-control">
                         </li>
-                        <li><span class="dropdown-item" wire:click="filterUser('')">All</span></li>
-                        @foreach ($user_list as $user_row)
-                            <li><span class="dropdown-item"
-                                    wire:click="filterUser('{{ $user_row->user }}')">{{ $user_row->user }}</span>
-                            </li>
-                        @endforeach
+                        <div class="overflow-auto" style="max-height: 280px;">
+                            <li><span class="dropdown-item" wire:click="filterUser('')">All</span></li>
+                            @foreach ($user_list as $user_row)
+                                <li><span class="dropdown-item"
+                                        wire:click="filterUser('{{ $user_row->user }}')">{{ $user_row->user }}</span>
+                                </li>
+                            @endforeach
+                        </div>
                     </ul>
                 </div>
                 <div class="dropdown me-3 mb-2">
@@ -120,18 +145,19 @@
                     </button>
                     <input type="text" value="{{ $pic }}" name="pic" hidden>
                     <input type="text" value="{{ $nik }}" name="nik" hidden>
-                    <ul class="dropdown-menu overflow-auto {{ $pic_search ? 'show' : '' }}"
-                        aria-labelledby="dropdown-pic" style="max-height: 280px;">
+                    <ul class="dropdown-menu {{ $pic_search ? 'show' : '' }}" aria-labelledby="dropdown-pic">
                         <li class="mb-1"><input wire:model="pic_search" type="text" class="form-control">
                         </li>
-                        <li><span class="dropdown-item" wire:click="filterPic('','')">All</span></li>
-                        @foreach ($pic_list as $pic_row)
-                            <li><span class="dropdown-item"
-                                    wire:click="filterPic('{{ $pic_row->pic }}','{{ $pic_row->nik }}')">{{ $pic_row->pic }}
-                                    ({{ $pic_row->nik }})
-                                </span>
-                            </li>
-                        @endforeach
+                        <div class="overflow-auto" style="max-height: 280px;">
+                            <li><span class="dropdown-item" wire:click="filterPic('','')">All</span></li>
+                            @foreach ($pic_list as $pic_row)
+                                <li><span class="dropdown-item"
+                                        wire:click="filterPic('{{ $pic_row->pic }}','{{ $pic_row->nik }}')">{{ $pic_row->pic }}
+                                        ({{ $pic_row->nik }})
+                                    </span>
+                                </li>
+                            @endforeach
+                        </div>
                     </ul>
                 </div>
                 {{-- <div class="dropdown me-3 mb-2">
@@ -160,17 +186,19 @@
                         {{ $working_date ? $working_date : 'All' }}
                     </button>
                     <input type="text" value="{{ $working_date }}" name="working_date" hidden>
-                    <ul class="dropdown-menu overflow-auto {{ $working_date_search ? 'show' : '' }}"
-                        aria-labelledby="dropdown-date" style="max-height: 280px;">
+                    <ul class="dropdown-menu {{ $working_date_search ? 'show' : '' }}"
+                        aria-labelledby="dropdown-date">
                         <li class="mb-1"><input wire:model="working_date_search" type="text"
                                 class="form-control">
                         </li>
-                        <li><span class="dropdown-item" wire:click="filterWorkingDate('')">All</span></li>
-                        @foreach ($working_date_list as $working_date_row)
-                            <li><span class="dropdown-item"
-                                    wire:click="filterWorkingDate('{{ $working_date_row->working_date }}')">{{ $working_date_row->working_date }}</span>
-                            </li>
-                        @endforeach
+                        <div class="overflow-auto" style="max-height: 280px;">
+                            <li><span class="dropdown-item" wire:click="filterWorkingDate('')">All</span></li>
+                            @foreach ($working_date_list as $working_date_row)
+                                <li><span class="dropdown-item"
+                                        wire:click="filterWorkingDate('{{ $working_date_row->working_date }}')">{{ $working_date_row->working_date }}</span>
+                                </li>
+                            @endforeach
+                        </div>
                     </ul>
                 </div>
                 <div class="dropdown me-3 mb-2">

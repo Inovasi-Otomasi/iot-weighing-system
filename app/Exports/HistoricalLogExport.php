@@ -43,6 +43,7 @@ class HistoricalLogExport implements WithEvents, Responsable
             'from' => $request->input('from') ?: NULL,
             'to' => $request->input('to') ?: NULL,
             'line' => $request->input('line') ?: NULL,
+            'hmi' => $request->input('hmi') ?: NULL,
             'machine' => $request->input('machine') ?: NULL,
             'shift' => $request->input('shift') ?: NULL,
             'group' => $request->input('group') ?: NULL,
@@ -66,6 +67,9 @@ class HistoricalLogExport implements WithEvents, Responsable
         $parameters_log = new Historical();
         if ($this->parameter['line']) {
             $parameters_log = $parameters_log->where('line_name', $this->parameter['line']);
+        }
+        if ($this->parameter['hmi']) {
+            $parameters_log = $parameters_log->where('hmi_name', $this->parameter['hmi']);
         }
         if ($this->parameter['machine']) {
             $parameters_log = $parameters_log->where('machine_name', $this->parameter['machine']);
@@ -225,20 +229,21 @@ class HistoricalLogExport implements WithEvents, Responsable
         $sheet->setCellValue('C3', "SHIFT");
         $sheet->setCellValue('D3', "GROUP");
         $sheet->setCellValue('E3', "LINE");
-        $sheet->setCellValue('F3', "MACHINE");
+        $sheet->setCellValue('F3', "HMI");
+        $sheet->setCellValue('G3', "MACHINE");
 
         // $sheet->setCellValue('G3', "START");
         // $sheet->setCellValue('H3', "END");
-        $sheet->setCellValue('G3', "SKU");
-        $sheet->setCellValue('H3', "TARGET");
-        $sheet->setCellValue('I3', "WEIGHT");
+        $sheet->setCellValue('H3', "SKU");
+        $sheet->setCellValue('I3', "TARGET");
+        $sheet->setCellValue('J3', "WEIGHT");
 
         // $sheet->setCellValue('L3', "THRESHOLD HIGH");
         // $sheet->setCellValue('M3', "THRESHOLD LOW");
-        $sheet->setCellValue('J3', "STATUS");
-        $sheet->setCellValue('K3', "USER");
-        $sheet->setCellValue('L3', "PIC");
-        $sheet->setCellValue('M3', "NIK");
+        $sheet->setCellValue('K3', "STATUS");
+        $sheet->setCellValue('L3', "USER");
+        $sheet->setCellValue('M3', "PIC");
+        $sheet->setCellValue('N3', "NIK");
         $sheet->getStyle('A3')->applyFromArray($style_col);
         $sheet->getStyle('B3')->applyFromArray($style_col);
         $sheet->getStyle('C3')->applyFromArray($style_col);
@@ -252,6 +257,7 @@ class HistoricalLogExport implements WithEvents, Responsable
         $sheet->getStyle('K3')->applyFromArray($style_col);
         $sheet->getStyle('L3')->applyFromArray($style_col);
         $sheet->getStyle('M3')->applyFromArray($style_col);
+        $sheet->getStyle('N3')->applyFromArray($style_col);
         // $sheet->getStyle('N3')->applyFromArray($style_col);
         // $sheet->getStyle('O3')->applyFromArray($style_col);
         // $sheet->getStyle('P3')->applyFromArray($style_col);
@@ -261,6 +267,9 @@ class HistoricalLogExport implements WithEvents, Responsable
         $parameters_log = new Historical();
         if ($this->parameter['line']) {
             $parameters_log = $parameters_log->where('line_name', $this->parameter['line']);
+        }
+        if ($this->parameter['hmi']) {
+            $parameters_log = $parameters_log->where('hmi_name', $this->parameter['hmi']);
         }
         if ($this->parameter['machine']) {
             $parameters_log = $parameters_log->where('machine_name', $this->parameter['machine']);
@@ -315,20 +324,21 @@ class HistoricalLogExport implements WithEvents, Responsable
             $sheet->setCellValue('C' . $numrow, $row->shift_name);
             $sheet->setCellValue('D' . $numrow, $row->shift_group);
             $sheet->setCellValue('E' . $numrow, $row->line_name);
-            $sheet->setCellValue('F' . $numrow, $row->machine_name);
+            $sheet->setCellValue('F' . $numrow, $row->hmi_name);
+            $sheet->setCellValue('G' . $numrow, $row->machine_name);
 
             // $sheet->setCellValue('G' . $numrow, $row->shift_start);
             // $sheet->setCellValue('H' . $numrow, $row->shift_end);
-            $sheet->setCellValue('G' . $numrow, $row->sku_name);
-            $sheet->setCellValue('H' . $numrow, $row->target);
-            $sheet->setCellValue('I' . $numrow, $row->weight);
+            $sheet->setCellValue('H' . $numrow, $row->sku_name);
+            $sheet->setCellValue('I' . $numrow, $row->target);
+            $sheet->setCellValue('J' . $numrow, $row->weight);
 
             // $sheet->setCellValue('L' . $numrow, $row->th_H);
             // $sheet->setCellValue('M' . $numrow, $row->th_L);
-            $sheet->setCellValue('J' . $numrow, $row->status);
-            $sheet->setCellValue('K' . $numrow, $row->user);
-            $sheet->setCellValue('L' . $numrow, $row->pic);
-            $sheet->setCellValue('M' . $numrow, $row->nik);
+            $sheet->setCellValue('K' . $numrow, $row->status);
+            $sheet->setCellValue('L' . $numrow, $row->user);
+            $sheet->setCellValue('M' . $numrow, $row->pic);
+            $sheet->setCellValue('N' . $numrow, $row->nik);
             $sheet->getStyle('A' . $numrow)->applyFromArray($style_row);
             $sheet->getStyle('B' . $numrow)->applyFromArray($style_row);
             $sheet->getStyle('C' . $numrow)->applyFromArray($style_row);
@@ -342,6 +352,7 @@ class HistoricalLogExport implements WithEvents, Responsable
             $sheet->getStyle('K' . $numrow)->applyFromArray($style_row);
             $sheet->getStyle('L' . $numrow)->applyFromArray($style_row);
             $sheet->getStyle('M' . $numrow)->applyFromArray($style_row);
+            $sheet->getStyle('N' . $numrow)->applyFromArray($style_row);
             // $sheet->getStyle('N' . $numrow)->applyFromArray($style_row);
             // $sheet->getStyle('O' . $numrow)->applyFromArray($style_row);
             // $sheet->getStyle('P' . $numrow)->applyFromArray($style_row);
@@ -361,8 +372,9 @@ class HistoricalLogExport implements WithEvents, Responsable
         $sheet->getColumnDimension('I')->setAutoSize(true);
         $sheet->getColumnDimension('J')->setAutoSize(true);
         $sheet->getColumnDimension('K')->setAutoSize(true);
-        $sheet->getColumnDimension('L')->setWidth(30);
+        $sheet->getColumnDimension('L')->setAutoSize(true);
         $sheet->getColumnDimension('M')->setWidth(30);
+        $sheet->getColumnDimension('N')->setWidth(30);
         // $sheet->getColumnDimension('N')->setAutoSize(true);
         // $sheet->getColumnDimension('O')->setAutoSize(true);
         // $sheet->getColumnDimension('P')->setAutoSize(true);
@@ -370,30 +382,30 @@ class HistoricalLogExport implements WithEvents, Responsable
 
 
         $numrow += 3;
-        $sheet->setCellValue('L' . $numrow, 'Dilaporkan oleh');
-        $sheet->setCellValue('M' . $numrow, 'Diketahui oleh');
-        $sheet->getStyle('L' . $numrow)->applyFromArray($style_row);
+        $sheet->setCellValue('M' . $numrow, 'Dilaporkan oleh');
+        $sheet->setCellValue('N' . $numrow, 'Diketahui oleh');
         $sheet->getStyle('M' . $numrow)->applyFromArray($style_row);
+        $sheet->getStyle('N' . $numrow)->applyFromArray($style_row);
         $numrow++;
-        $sheet->mergeCells('L' . $numrow . ':L' . $numrow + 2);
         $sheet->mergeCells('M' . $numrow . ':M' . $numrow + 2);
-        $sheet->getStyle('L' . $numrow)->applyFromArray($style_row);
+        $sheet->mergeCells('N' . $numrow . ':N' . $numrow + 2);
         $sheet->getStyle('M' . $numrow)->applyFromArray($style_row);
-        $sheet->getStyle('L' . $numrow + 1)->applyFromArray($style_row);
+        $sheet->getStyle('N' . $numrow)->applyFromArray($style_row);
         $sheet->getStyle('M' . $numrow + 1)->applyFromArray($style_row);
-        $sheet->getStyle('L' . $numrow + 2)->applyFromArray($style_row);
+        $sheet->getStyle('N' . $numrow + 1)->applyFromArray($style_row);
         $sheet->getStyle('M' . $numrow + 2)->applyFromArray($style_row);
+        $sheet->getStyle('N' . $numrow + 2)->applyFromArray($style_row);
         $numrow += 3;
-        $sheet->setCellValue('L' . $numrow, 'Nama: ' . $this->parameter['qc_field'] ?: '');
-        $sheet->setCellValue('M' . $numrow, 'Nama: ' . $this->parameter['qc_head'] ?: '');
-        $sheet->getStyle('L' . $numrow)->applyFromArray($style_row);
+        $sheet->setCellValue('M' . $numrow, 'Nama: ' . $this->parameter['qc_field'] ?: '');
+        $sheet->setCellValue('N' . $numrow, 'Nama: ' . $this->parameter['qc_head'] ?: '');
         $sheet->getStyle('M' . $numrow)->applyFromArray($style_row);
+        $sheet->getStyle('N' . $numrow)->applyFromArray($style_row);
         // $sheet->getColumnDimension('A')->setAutoSize(true);
         // $sheet->getColumnDimension('B')->setAutoSize(true);
         $numrow++;
-        $sheet->setCellValue('L' . $numrow, 'QC Field');
-        $sheet->setCellValue('M' . $numrow, 'QC Unit Head');
-        $sheet->getStyle('L' . $numrow)->applyFromArray($style_row);
+        $sheet->setCellValue('M' . $numrow, 'QC Field');
+        $sheet->setCellValue('N' . $numrow, 'QC Unit Head');
         $sheet->getStyle('M' . $numrow)->applyFromArray($style_row);
+        $sheet->getStyle('N' . $numrow)->applyFromArray($style_row);
     }
 }
