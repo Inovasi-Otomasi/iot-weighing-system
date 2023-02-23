@@ -514,6 +514,8 @@ class DashboardController extends Controller
         $hmi = $request->input('hmi');
         $pic = $request->input('pic');
         $nik = $request->input('nik');
+        $low = $request->input('low');
+        $high = $request->input('high');
         $parameters_log_ranged = [];
         $parameters_log = new Historical();
         if ($line) {
@@ -543,6 +545,12 @@ class DashboardController extends Controller
         if ($nik) {
             $parameters_log = $parameters_log->where('nik', $nik);
         }
+        if ($low) {
+            $parameters_log = $parameters_log->where('weight', '>=', $low);
+        }
+        if ($high) {
+            $parameters_log = $parameters_log->where('weight', '<=', $high);
+        }
         if ($from && $to) {
             $from = date("Y-m-d H:i:s", $from);
             $to = date("Y-m-d H:i:s", $to);
@@ -554,8 +562,8 @@ class DashboardController extends Controller
         }
 
         $average = round($parameters_log_ranged->avg('weight'), 3) ?: 0;
-        $min = $parameters_log_ranged->min('weight') ?: 0;
-        $max = $parameters_log_ranged->max('weight') ?: 0;
+        $min = round($parameters_log_ranged->min('weight'), 3) ?: 0;
+        $max = round($parameters_log_ranged->max('weight'), 3) ?: 0;
 
         return [
             'average' => $average,
