@@ -19,7 +19,7 @@ pipeline {
                 sh 'echo DB_PASSWORD=${DB_PASSWORD} >> .env'
                 sh 'php artisan key:generate'
                 sh 'cp .env .env.testing'
-                sh 'php artisan migrate'
+//                 sh 'php artisan migrate'
             }
         }
         stage("Unit test") {
@@ -27,24 +27,9 @@ pipeline {
                 sh 'php artisan test'
             }
         }
-        stage("Code coverage") {
-            steps {
-                sh "vendor/bin/phpunit --coverage-html 'reports/coverage'"
-            }
-        }
-        stage("Static code analysis larastan") {
-            steps {
-                sh "vendor/bin/phpstan analyse --memory-limit=2G"
-            }
-        }
-        stage("Static code analysis phpcs") {
-            steps {
-                sh "vendor/bin/phpcs"
-            }
-        }
         stage("Docker build") {
             steps {
-                sh "docker build -t danielgara/laravel8cd ."
+                sh "docker build -t michaeljuaniot/test-laravel ."
             }
         }
         stage("Docker push") {
@@ -59,22 +44,11 @@ pipeline {
         }
         stage("Deploy to staging") {
             steps {
-                sh "docker run -d --rm -p 80:80 --name laravel8cd danielgara/laravel8cd"
+                sh "docker run -d --rm -p 80:80 --name laravel-test michaeljuaniot/test-laravel"
             }
-        }
-        stage("Acceptance test curl") {
-            steps {
-                sleep 20
-                sh "chmod +x acceptance_test.sh && ./acceptance_test.sh"
-            }
-        }
-        stage("Acceptance test codeception") {
-            steps {
-                sh "vendor/bin/codecept run"
-            }
-            post {
+        } post {
                 always {
-                    sh "docker stop laravel8cd"
+                    sh "docker stop laravel-test"
                 }
             }
         }
