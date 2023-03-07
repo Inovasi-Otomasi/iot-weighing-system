@@ -724,11 +724,17 @@
                             })
 
 
+                        },
+                        complete: function(data) {
+                            setTimeout(getAdminView, 250);
                         }
                     });
                 }
-                getAdminView();
-                setInterval(getAdminView, 1000);
+                // getAdminView();
+                // setInterval(getAdminView, 1000);
+                $(document).ready(function() {
+                    setTimeout(getAdminView, 250);
+                });
             });
         @endif
     </script>
