@@ -31,7 +31,7 @@ class DropdownSelection extends Component
     public $machine;
     public $user;
     public $skuAJAX;
-    protected $listeners = ['updateSku', 'updateLine', 'updateShift', 'updateHmi', 'updateMachine', 'updateUser', 'updatePic', 'updateSkuAJAX'];
+    protected $listeners = ['updateSku', 'updateLine', 'updateShift', 'updateHmi', 'updateMachine', 'updateUser', 'updatePic'];
     protected $queryString = ['line', 'shift', 'sku', 'hmi', 'machine', 'user', 'pic'];
     public function mount()
     {
@@ -64,11 +64,11 @@ class DropdownSelection extends Component
     //     $this->shift_name = Shift::where('id', $this->shift)->first()->shift_name;
     // }
 
-    public function updateSkuAJAX($arg)
-    {
-        $this->skuAJAX = $arg;
-        // dd($this->skuAJAX);
-    }
+    // public function updateSkuAJAX($arg)
+    // {
+    //     $this->skuAJAX = $arg;
+    //     // dd($this->skuAJAX);
+    // }
 
     public function updateSku($arg)
     {

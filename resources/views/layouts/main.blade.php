@@ -487,7 +487,7 @@
             });
         @endif
         @if (Request::is('hmi'))
-            let machineWire, skuWire, lineWire, shiftWire, hmiWire, skuAJAXWire;
+            let machineWire, skuWire, lineWire, shiftWire, hmiWire;
             let autoSend = 0;
             let tableUpdated = false;
             document.addEventListener("DOMContentLoaded", () => {
@@ -502,13 +502,6 @@
                         .payload.method === 'updateSkuSelection') {
                         skuWire = message.updateQueue[0].payload.params[0];
                         // console.log(message.updateQueue[0].payload)
-                        // tableUpdated = true;
-                    }
-                    // console.log(message.updateQueue[0].payload);
-                    if (message.updateQueue[0].payload.event === 'updateSkuAJAX') {
-                        skuAJAXWire = message.updateQueue[0].payload.params[0];
-                        console.log(message.updateQueue[0].payload.params[0]);
-                        // console.log(message.updateQueue[0].payload);
                         // tableUpdated = true;
                     }
                     if (message.updateQueue[0].payload.method === 'updateLine') {
@@ -611,95 +604,6 @@
                 });
 
 
-                // let getLiveHMI = function() {
-                //     $.ajax({
-                //         type: 'POST',
-                //         // url: 'http://192.168.18.81:1881/testis',
-                //         url: 'http://localhost:1880/testis',
-                //         async: true,
-                //         dataType: 'json',
-                //         data: {
-                //             // _token: "{{ csrf_token() }}",
-                //             // line: lineWire || {{ request('line') ?: 'null' }},
-                //             // machine: machineWire || {{ request('machine') ?: 'null' }},
-                //             // shift: shiftWire || {{ request('shift') ?: 'null' }},
-                //             skuAJAX: skuAJAXWire ||
-                //                 {!! App\Models\Hmi::with('sku')->where('sku_id', request('sku'))->first();
-                //                     ? json_encode(
-                //                         App\Models\Hmi::with('sku')->where('sku_id', request('sku'))->first(),
-                //                     )
-                //                     : 'null' !!},
-                //             // hmi: hmiWire || {{ request('hmi') ?: 'null' }}
-
-                //         },
-                //         success: function(data) {
-                //             console.log(data);
-                //             let percentage_html = `
-            //         <span class="text-sm text-${data.percentage_result.color} font-weight-bolder">
-            //             <i class="fa fa-chevron-${data.percentage_result.arrow} text-xs me-1" aria-hidden="true"></i>
-            //             <span>${data.percentage_result.percentage}</span> %
-            //         </span>
-            //         <span class="text-sm ms-1">from ${data.percentage_result.target} gram (target).</span>`;
-
-                //             let weight_status = `
-            //             <span class="text-${data.percentage_result.color}">${data.weight_status}</span>
-            //         `;
-
-                //             let stable_html =
-                //                 `<span class="badge bg-gradient-danger">Unstable</span>`;
-                //             if (data.percentage_result.stable) {
-                //                 stable_html =
-                //                     `<span class="badge bg-gradient-success">Stable</span>`;
-                //             }
-
-                //             let auto_html =
-                //                 `<span class="badge bg-gradient-secondary">Manual</span>`;
-                //             if (data.percentage_result.auto) {
-                //                 auto_html =
-                //                     `<span class="badge bg-gradient-success">Auto</span>`;
-                //             }
-
-
-                //             let sending_html =
-                //                 `<span class="badge bg-gradient-warning">Reading</span>`;
-                //             if (data.percentage_result.sending) {
-                //                 sending_html =
-                //                     `<span class="badge bg-gradient-success">Sent</span>`;
-                //                 if (autoSend != data.percentage_result.sending) {
-                //                     tableUpdated = true;
-                //                     autoSend = data.percentage_result.sending
-                //                 }
-                //             } else {
-                //                 if (autoSend != data.percentage_result.sending) {
-                //                     autoSend = data.percentage_result.sending
-                //                 }
-                //             }
-
-                //             let timeout_html =
-                //                 `<span class="badge bg-gradient-success">Sync</span>`;
-                //             if (data.percentage_result.timeout) {
-                //                 timeout_html =
-                //                     `<span class="badge bg-gradient-danger">Timeout</span>`;
-                //             }
-
-                //             $('#actual-weight').html(data.actual_weight);
-                //             $('#percentage-from-target').html(percentage_html);
-                //             $('#weight-status').html(weight_status);
-                //             $('#stable-status').html(stable_html);
-                //             $('#auto-status').html(auto_html);
-                //             $('#sent-status').html(sending_html);
-                //             $('#timeout-status').html(timeout_html);
-                //         },
-                //         complete: function(data) {
-                //             setTimeout(getLiveHMI, 250);
-                //         }
-                //     });
-                // }
-                // // getLiveHMI();
-                // // setInterval(getLiveHMI, 1000);
-                // $(document).ready(function() {
-                //     setTimeout(getLiveHMI, 250);
-                // });
 
 
                 $(function() {
@@ -751,7 +655,7 @@
                 tableLog();
                 let updateTable = function() {
                     if (tableUpdated) {
-                        console.log('slebew');
+                        // console.log('slebew');
                         $('#historical_log').DataTable().clear().destroy();
                         tableLog();
                         tableUpdated = false;
