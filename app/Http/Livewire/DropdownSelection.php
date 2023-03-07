@@ -30,7 +30,8 @@ class DropdownSelection extends Component
     public $pic_search;
     public $machine;
     public $user;
-    protected $listeners = ['updateSku', 'updateLine', 'updateShift', 'updateHmi', 'updateMachine', 'updateUser', 'updatePic'];
+    public $skuAJAX;
+    protected $listeners = ['updateSku', 'updateLine', 'updateShift', 'updateHmi', 'updateMachine', 'updateUser', 'updatePic', 'updateSkuAJAX'];
     protected $queryString = ['line', 'shift', 'sku', 'hmi', 'machine', 'user', 'pic'];
     public function mount()
     {
@@ -62,6 +63,13 @@ class DropdownSelection extends Component
     //     $this->shift = $arg;
     //     $this->shift_name = Shift::where('id', $this->shift)->first()->shift_name;
     // }
+
+    public function updateSkuAJAX($arg)
+    {
+        $this->skuAJAX = $arg;
+        // dd($this->skuAJAX);
+    }
+
     public function updateSku($arg)
     {
         // ddd($arg);
@@ -108,6 +116,8 @@ class DropdownSelection extends Component
         $this->sku = $hmi->sku_id;
         $this->sku_name = Sku::where('id', $this->sku)->first() ? Sku::where('id', $this->sku)->first()->sku_name : '';
         $this->emit('updateSkuSelection', $this->sku);
+        // $sku = Sku::where('id', $this->sku)->first() ? Sku::where('id', $this->sku)->first() : '';
+        // $this->emit('updateSkuAJAX', $sku);
         $this->machine = $hmi->machine_id;
         $this->emit('updateMachineSelection', $this->machine);
         $this->user = $hmi->user;
