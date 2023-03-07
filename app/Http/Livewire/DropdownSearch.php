@@ -29,8 +29,9 @@ class DropdownSearch extends Component
     public function updateSku($arg)
     {
         $this->sku = $arg;
-        $sku = Sku::where('id', $this->sku)->first() ? Sku::where('id', $this->sku)->first() : '';
-        $this->emit('updateSkuAJAX', $sku);
+        // $sku = Sku::where('id', $this->sku)->first() ? Sku::where('id', $this->sku)->first() : '';
+        $hmi = Hmi::with('sku')->where('sku_id', $this->sku)->first() ?: '';
+        $this->emit('updateSkuAJAX', $hmi);
         $this->emit('updateSku', $this->sku);
     }
     public function updateLine($arg)
