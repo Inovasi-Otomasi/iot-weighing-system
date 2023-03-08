@@ -529,6 +529,7 @@
                 });
             });
 
+
             $(document).ready(function() {
                 let getLiveHMIauto = function() {
                     $.ajax({
@@ -543,23 +544,6 @@
 
                         },
                         success: function(data) {
-                            //         let percentage_html = `
-                        // <span class="text-sm text-${data.percentage_result.color} font-weight-bolder">
-                        //     <i class="fa fa-chevron-${data.percentage_result.arrow} text-xs me-1" aria-hidden="true"></i>
-                        //     <span>${data.percentage_result.percentage}</span> %
-                        // </span>
-                        // <span class="text-sm ms-1">from ${data.percentage_result.target} gram (target).</span>`;
-
-                            //         let weight_status = `
-                        //     <span class="text-${data.percentage_result.color}">${data.weight_status}</span>
-                        // `;
-
-                            //         let stable_html =
-                            //             `<span class="badge bg-gradient-danger">Unstable</span>`;
-                            //         if (data.percentage_result.stable) {
-                            //             stable_html =
-                            //                 `<span class="badge bg-gradient-success">Stable</span>`;
-                            //         }
 
                             let auto_html =
                                 `<span class="badge bg-gradient-secondary">Manual</span>`;
@@ -584,126 +568,104 @@
                                 }
                             }
 
-                            // let timeout_html =
-                            //     `<span class="badge bg-gradient-success">Sync</span>`;
-                            // if (data.percentage_result.timeout) {
-                            //     timeout_html =
-                            //         `<span class="badge bg-gradient-danger">Timeout</span>`;
-                            // }
-
-                            // $('#actual-weight').html(data.actual_weight);
-                            // $('#percentage-from-target').html(percentage_html);
-                            // $('#weight-status').html(weight_status);
-                            // $('#stable-status').html(stable_html);
                             $('#auto-status').html(auto_html);
                             $('#sent-status').html(sending_html);
-                            // $('#timeout-status').html(timeout_html);
                         },
                         complete: function(data) {
                             setTimeout(getLiveHMIauto, 250);
                         }
                     });
                 }
-                // getLiveHMI();
-                // setInterval(getLiveHMI, 1000);
                 $(document).ready(function() {
                     setTimeout(getLiveHMIauto, 250);
                 });
 
 
-                let getLiveHMI = function() {
-                    $.ajax({
-                        type: 'POST',
-                        // url: 'http://192.168.18.81:1881/testis',
-                        url: 'http://localhost:1880/livedataHMI',
-                        async: true,
-                        dataType: 'json',
-                        "headers": {
-                            "accept": "application/json",
-                            "Access-Control-Allow-Origin": "*"
-                        },
-                        data: {
-                            // _token: "{{ csrf_token() }}",
-                            // line: lineWire || {{ request('line') ?: 'null' }},
-                            // machine: machineWire || {{ request('machine') ?: 'null' }},
-                            // shift: shiftWire || {{ request('shift') ?: 'null' }},
-                            skuAJAX: skuAJAXWire ||
-                                {!! App\Models\Hmi::with('sku')->where('sku_id', request('sku'))->first()
-                                    ? json_encode(
-                                        App\Models\Hmi::with('sku')->where('sku_id', request('sku'))->first(),
-                                    )
-                                    : 'null' !!},
-                            // hmi: hmiWire || {{ request('hmi') ?: 'null' }}
+                function connect() {
+                    var ws = new WebSocket('ws://localhost:1880/livedata');
+                    ws.onopen = function() {
+                        // subscribe to some channels
+                        // ws.send(JSON.stringify({
+                        //     //.... some message the I must send when I connect ....
+                        // }));
+                    };
 
-                        },
-                        success: function(data) {
-                            // console.log(data);
-                            let percentage_html = `
-                    <span class="text-sm text-${data.percentage_result.color} font-weight-bolder">
-                        <i class="fa fa-chevron-${data.percentage_result.arrow} text-xs me-1" aria-hidden="true"></i>
-                        <span>${data.percentage_result.percentage}</span> %
-                    </span>
-                    <span class="text-sm ms-1">from ${data.percentage_result.target} gram (target).</span>`;
-
-                            let weight_status = `
-                        <span class="text-${data.percentage_result.color}">${data.weight_status}</span>
-                    `;
-
-                            let stable_html =
-                                `<span class="badge bg-gradient-danger">Unstable</span>`;
-                            if (data.percentage_result.stable) {
-                                stable_html =
-                                    `<span class="badge bg-gradient-success">Stable</span>`;
-                            }
-
-                            // let auto_html =
-                            //     `<span class="badge bg-gradient-secondary">Manual</span>`;
-                            // if (data.percentage_result.auto) {
-                            //     auto_html =
-                            //         `<span class="badge bg-gradient-success">Auto</span>`;
-                            // }
-
-
-                            // let sending_html =
-                            //     `<span class="badge bg-gradient-warning">Reading</span>`;
-                            // if (data.percentage_result.sending) {
-                            //     sending_html =
-                            //         `<span class="badge bg-gradient-success">Sent</span>`;
-                            //     if (autoSend != data.percentage_result.sending) {
-                            //         tableUpdated = true;
-                            //         autoSend = data.percentage_result.sending
-                            //     }
-                            // } else {
-                            //     if (autoSend != data.percentage_result.sending) {
-                            //         autoSend = data.percentage_result.sending
-                            //     }
-                            // }
-
-                            let timeout_html =
-                                `<span class="badge bg-gradient-success">Sync</span>`;
-                            if (data.percentage_result.timeout) {
-                                timeout_html =
-                                    `<span class="badge bg-gradient-danger">Timeout</span>`;
-                            }
-
-                            $('#actual-weight').html(data.actual_weight);
-                            $('#percentage-from-target').html(percentage_html);
-                            $('#weight-status').html(weight_status);
-                            $('#stable-status').html(stable_html);
-                            // $('#auto-status').html(auto_html);
-                            // $('#sent-status').html(sending_html);
-                            $('#timeout-status').html(timeout_html);
-                        },
-                        complete: function(data) {
-                            setTimeout(getLiveHMI, 250);
+                    ws.onmessage = function(e) {
+                        // console.log('Message:', data);
+                        // $('#actual-weight').html(data.data);
+                        let new_sku = skuAJAXWire || {!! App\Models\Hmi::with('sku')->where('sku_id', request('sku'))->first()
+                            ? json_encode(
+                                App\Models\Hmi::with('sku')->where('sku_id', request('sku'))->first(),
+                            )
+                            : 'null' !!};
+                        // console.log(JSON.parse(e.data));
+                        var raw = JSON.parse(e.data).weight;
+                        var data = raw.split(' ');
+                        var datas = data[0];
+                        var weight = Number(datas.split(',')[1]).toFixed(3);
+                        var stable = datas.split(',')[0] == 'ST' ? 1 : 0;
+                        let target = new_sku.sku ? new_sku.sku['target'] : 0;
+                        var th_H = new_sku.sku ? new_sku.sku['th_H'] : 0;
+                        var th_L = new_sku.sku ? new_sku.sku['th_L'] : 0;
+                        let percentage = (weight * 100 / target) - 100;
+                        let arrow = percentage < 0 ? 'down' : 'up';
+                        let color = weight <= th_L || weight >= th_H ? 'danger' : 'success';
+                        let timeout = JSON.parse(e.data).timeout;
+                        var weight_status = 'UNDER';
+                        if (weight >= th_L && weight <= th_H) {
+                            weight_status = 'PASS';
+                        } else if (weight < th_L) {
+                            weight_status = 'UNDER';
+                        } else if (weight > th_H) {
+                            weight_status = 'OVER';
                         }
-                    });
+
+                        let percentage_html = `
+                            <span class="text-sm text-${color} font-weight-bolder">
+                                <i class="fa fa-chevron-${arrow} text-xs me-1" aria-hidden="true"></i>
+                                <span>${percentage.toFixed(3)}</span> %
+                            </span>
+                            <span class="text-sm ms-1">from ${target} gram (target).</span>`;
+
+                        let weight_status_html = `
+                                <span class="text-${color}">${weight_status}</span>
+                            `;
+
+                        let stable_html =
+                            `<span class="badge bg-gradient-danger">Unstable</span>`;
+                        if (stable) {
+                            stable_html =
+                                `<span class="badge bg-gradient-success">Stable</span>`;
+                        }
+
+                        let timeout_html =
+                            `<span class="badge bg-gradient-success">Sync</span>`;
+                        if (timeout) {
+                            timeout_html =
+                                `<span class="badge bg-gradient-danger">Timeout</span>`;
+                        }
+
+                        $('#actual-weight').html(weight);
+                        $('#percentage-from-target').html(percentage_html);
+                        $('#weight-status').html(weight_status_html);
+                        $('#stable-status').html(stable_html);
+                        $('#timeout-status').html(timeout_html);
+                    };
+
+                    ws.onclose = function(e) {
+                        console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+                        setTimeout(function() {
+                            connect();
+                        }, 1000);
+                    };
+
+                    ws.onerror = function(err) {
+                        console.error('Socket encountered error: ', err.message, 'Closing socket');
+                        ws.close();
+                    };
                 }
-                // getLiveHMI();
-                // setInterval(getLiveHMI, 1000);
-                $(document).ready(function() {
-                    setTimeout(getLiveHMI, 250);
-                });
+
+                connect();
 
 
                 $(function() {
