@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Historical;
 use App\Models\Hmi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,6 +10,7 @@ use App\Models\Line;
 use App\Models\Machine;
 use App\Models\Shift;
 use App\Models\Sku;
+use Throwable;
 
 class HMIController extends Controller
 {
@@ -105,5 +107,70 @@ class HMIController extends Controller
             // 'weight_status' => $weight_status
         ];
         return json_encode($data);
+    }
+
+    public function submitLog(Request $request)
+    {
+        $rules = [
+            'stable' => 'required',
+            'weight' => 'required',
+            'hmi' => 'required',
+            // 'sku' => 'required',
+            // 'pic' => 'required',
+            // 'user' => 'required',
+            // 'machine' => 'required'
+        ];
+        $validatedData = $request->validate($rules);
+
+        try {
+            $hmi = Hmi::where('id', $validatedData['hmi'])->first();
+            if ($hmi->sku_id && $hmi->machine_id && $hmi->user && $hmi->pic_id) {
+                if ($validatedData['weight'] <= $hmi->hmi_th) {
+                    return json_encode(['status' => 'failed']);
+                }
+                $sku = $hmi->sku;
+                $line = $hmi->line;
+                $shift = $hmi->shift;
+                $machine = $hmi->machine;
+                $pic = $hmi->pic;
+                $user = $hmi->user;
+                if ($validatedData['weight'] <= $sku->th_L) {
+                    $status = 'UNDER';
+                } elseif ($validatedData['weight'] >= $sku->th_H) {
+                    $status = 'OVER';
+                } else {
+                    $status = 'PASS';
+                }
+                $data = [
+                    'line_name' => $line->line_name,
+                    'sku_name' => $sku->sku_name,
+                    'machine_name' => $machine->machine_name,
+                    'shift_name' => $shift ? $shift->shift_name : NULL,
+                    'shift_group' => $shift ? $shift->shift_group : NULL,
+                    'shift_start' => $shift ? $shift->shift_start : NULL,
+                    'shift_end' => $shift ? $shift->shift_end : NULL,
+                    'hmi_name' => $hmi->hmi_name,
+                    'user' => $user,
+                    'pic' => $pic->pic_name,
+                    'nik' => $pic->nik,
+                    'weight' => round($validatedData['weight'], 3),
+                    'target' => $sku->target,
+                    'th_H' => $sku->th_H,
+                    'th_L' => $sku->th_L,
+                    'status' => $status,
+                    'working_date' => now()->subHours(7)
+                ];
+
+
+                $affected_row =  Historical::Create($data);
+                if ($affected_row) {
+                    return json_encode(['status' => 'success']);
+                } else {
+                    return json_encode(['status' => 'failed']);
+                }
+            }
+        } catch (Throwable $e) {
+            return json_encode(['status' => 'failed']);
+        }
     }
 }

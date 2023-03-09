@@ -238,7 +238,11 @@
                             <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                             <label class="form-check-label" for="flexSwitchCheckDefault">AUTO</label>
                         </div> --}}
-                        @livewire('auto-selection')
+                        {{-- @livewire('auto-selection') --}}
+                        <div class="form-check form-switch mt-3">
+                            <input class="form-check-input" type="checkbox" role="switch" id="auto-selection">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">AUTO</label>
+                        </div>
                     </div>
                     <div class="col">
                         <div class="mb-3 row">
@@ -264,7 +268,32 @@
                                     <i class="fa-solid fa-cog"></i>
                                 </button>
                             </div> --}}
-                        @livewire('submit-log', ['request' => request()->all()])
+                        {{-- @livewire('submit-log', ['request' => request()->all()]) --}}
+                        <div>
+                            <div class="d-flex justify-content-center">
+                                <button class="btn btn-iot mt-2 mb-0 btn-lg" id="submit-log"
+                                    style="border-radius:70%!important;padding:2rem!important;">
+                                    <i class="fa-solid fa-play icon-lg"></i>
+                                </button>
+
+                            </div>
+                            <div id="flash-message"></div>
+                            {{-- @if (session()->has('successMsg'))
+                                <div class="alert alert-success alert-dismissible text-center mt-5">
+                                    {{ session('successMsg') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true" class="text-dark">&times;</span>
+                                    </button>
+                                </div>
+                            @elseif(session()->has('failedMsg'))
+                                <div class="alert alert-danger alert-dismissible text-center mt-5">
+                                    {{ session('failedMsg') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true" class="text-dark">&times;</span>
+                                    </button>
+                                </div>
+                            @endif --}}
+                        </div>
 
                     </div>
                 </div>

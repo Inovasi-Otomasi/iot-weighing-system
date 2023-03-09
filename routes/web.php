@@ -31,6 +31,7 @@ Route::get('/hmi', [HMIController::class, 'index'])->name('hmi')->middleware('au
 Route::post('/live_hmi', [HMIController::class, 'liveHMI'])->middleware('auth');
 Route::post('/hmi_list', [DatatablesController::class, 'hmiList'])->middleware('auth');
 Route::put('/edit_hmi', [DatatablesController::class, 'editHmi'])->middleware('auth');
+Route::post('/submit_log', [HMIController::class, 'submitLog'])->middleware('auth');
 //sku
 Route::post('/sku_list', [DatatablesController::class, 'skuList'])->middleware('auth');
 Route::post('/add_sku', [DatatablesController::class, 'addSKU'])->middleware('auth');

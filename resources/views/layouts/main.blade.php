@@ -217,16 +217,6 @@
                     'hour');
 
                 function cb_date(start, end) {
-
-                    // var url2 = new URL((
-                    //         "{{ $request->fullUrlWithQuery(['range' => null, 'from' => null, 'to' => null]) }}"
-                    //     )
-                    //     .replaceAll('&amp;', '&'));
-                    // url2.searchParams.set('from', start.unix());
-                    // url2.searchParams.set('to', end.unix());
-                    // window.location.replace(url2);
-                    // $('#from').val(start.format('YYYY-MM-DDThh:mm:ss'));
-                    // $('#to').val(end.format('YYYY-MM-DDThh:mm:ss'));
                     $('#from').val(start.unix());
                     $('#to').val(end.unix());
                     $('#range').val(null);
@@ -236,13 +226,10 @@
                     timePicker: true,
                     startDate: start,
                     endDate: end,
-                    // startDate: moment().startOf('hour'),
-                    // endDate: moment().startOf('hour').add(32, 'hour'),
                     locale: {
                         separator: " to ",
                         format: 'YYYY-MM-DD HH:mm:ss'
                     }
-                    // cb_date(start, end);
                 }, cb_date);
                 $('#datetimerange span').html(start.format('YYYY-MM-DD HH:mm:ss') + ' To ' + end.format(
                     'YYYY-MM-DD HH:mm:ss'));
@@ -277,17 +264,6 @@
                             working_date: "{{ request('working_date') ?: null }}",
                         },
                         success: function(data) {
-                            // if ('value' in data && !data.value) {
-                            // window.{{ $charts['chart_gauge']->id }}
-                            //     .setOption({
-                            //         series: [{
-                            //             data: [{
-                            //                 value: data.value[
-                            //                     'weight'
-                            //                 ]
-                            //             }]
-                            //         }]
-                            //     });
                             window.{{ $charts['chart_bar']->id }}
                                 .setOption({
                                     series: [{
@@ -369,88 +345,7 @@
                     });
                 }
 
-                // let getLiveData = function() {
-                //     if (isLoaded) {
-                //         $.ajax({
-                //             type: 'POST',
-                //             url: '{{ url('livedata') }}',
-                //             async: true,
-                //             dataType: 'json',
-                //             data: {
-                //                 _token: "{{ csrf_token() }}",
-                //                 range: {{ request('range') ?: 'null' }},
-                //                 from: {{ request('from') ?: 'null' }},
-                //                 to: {{ request('to') ?: 'null' }},
-                //                 line: "{{ request('line') ?: null }}",
-                //                 machine: "{{ request('machine') ?: null }}",
-                //                 shift: "{{ request('shift') ?: null }}",
-                //                 group: "{{ request('group') ?: null }}",
-                //                 user: "{{ request('user') ?: null }}",
-                //                 sku: "{{ request('sku') ?: null }}",
-                //                 hmi: "{{ request('hmi') ?: null }}",
-                //             },
-                //             success: function(data) {
-                //                 // if ('value' in data && !data.value) {
-                //                 // window.{{ $charts['chart_gauge']->id }}
-                //                 //     .setOption({
-                //                 //         series: [{
-                //                 //             data: [{
-                //                 //                 value: data.value[
-                //                 //                     'weight'
-                //                 //                 ]
-                //                 //             }]
-                //                 //         }]
-                //                 //     });
-                //                 window.{{ $charts['chart_bar']->id }}
-                //                     .setOption({
-                //                         series: [{
-                //                             data: [{
-                //                                 value: data.status[
-                //                                     'UNDERWEIGHT']
-                //                             }, {
-                //                                 value: data.status[
-                //                                     'OK']
-                //                             }, {
-                //                                 value: data.status['OVERWEIGHT']
-                //                             }]
-                //                         }]
-                //                     });
-                //                 if (created_at != data.value['created_at']) {
-                //                     datapoll.push(data.value);
-                //                     window.{{ $charts['chart_line']->id }}
-                //                         .setOption({
-                //                             series: [{
-                //                                 data: datapoll.map(
-                //                                     function(row) {
-                //                                         return [row[
-                //                                             'created_at'
-                //                                         ], row[
-                //                                             'weight'
-                //                                         ]];
-                //                                     })
-                //                             }]
-                //                         });
-                //                     // window.{{ $charts['chart_line']->id }}
-                //                     //     .appendData({
-                //                     //         seriesIndex: 0,
-                //                     //         data: [name[data.value[
-                //                     //             'created_at'
-                //                     //         ], data.value[
-                //                     //             'weight'
-                //                     //         ]]]
-                //                     //     });
-
-                //                     // console.log('hehe');
-                //                     created_at = data.value['created_at'];
-                //                 }
-                //                 // }
-                //             }
-                //         });
-                //     }
-                // }
                 waitForElement("#{{ $charts['chart_bar']->id }}", getLiveDataOnce);
-                // getLiveDataOnce();
-                // setInterval(getLiveData, 5000);
             });
             $(document).ready(function() {
                 $('#historical_log').DataTable({
@@ -490,6 +385,9 @@
             let machineWire, skuWire, lineWire, shiftWire, hmiWire, skuAJAXWire;
             let autoSend = 0;
             let tableUpdated = false;
+            skuAJAXWire = {!! App\Models\Sku::where('id', request('sku'))->first()
+                ? json_encode(App\Models\Sku::where('id', request('sku'))->first())
+                : 'null' !!};
             document.addEventListener("DOMContentLoaded", () => {
                 Livewire.hook('message.sent', (message, component) => {
                     // console.log(message.updateQueue[0].payload.method);
@@ -507,6 +405,8 @@
                     // console.log(message.updateQueue[0].payload);
                     if (message.updateQueue[0].payload.event === 'updateSkuAJAX') {
                         skuAJAXWire = message.updateQueue[0].payload.params[0];
+                        console.log(message.updateQueue[0].payload);
+                        console.log(message.updateQueue[0].payload.params[0]);
                         console.log(skuAJAXWire);
                         // console.log(message.updateQueue[0].payload);
                         // tableUpdated = true;
@@ -531,55 +431,22 @@
 
 
             $(document).ready(function() {
-                let getLiveHMIauto = function() {
-                    $.ajax({
-                        type: 'POST',
-                        url: '{{ url('live_hmi') }}',
-                        async: true,
-                        dataType: 'json',
-                        data: {
-                            _token: "{{ csrf_token() }}",
-                            machine: machineWire || {{ request('machine') ?: 'null' }},
-                            hmi: hmiWire || {{ request('hmi') ?: 'null' }}
-
-                        },
-                        success: function(data) {
-
-                            let auto_html =
-                                `<span class="badge bg-gradient-secondary">Manual</span>`;
-                            if (data.percentage_result.auto) {
-                                auto_html =
-                                    `<span class="badge bg-gradient-success">Auto</span>`;
-                            }
-
-
-                            let sending_html =
-                                `<span class="badge bg-gradient-warning">Reading</span>`;
-                            if (data.percentage_result.sending) {
-                                sending_html =
-                                    `<span class="badge bg-gradient-success">Sent</span>`;
-                                if (autoSend != data.percentage_result.sending) {
-                                    tableUpdated = true;
-                                    autoSend = data.percentage_result.sending
-                                }
-                            } else {
-                                if (autoSend != data.percentage_result.sending) {
-                                    autoSend = data.percentage_result.sending
-                                }
-                            }
-
-                            $('#auto-status').html(auto_html);
-                            $('#sent-status').html(sending_html);
-                        },
-                        complete: function(data) {
-                            setTimeout(getLiveHMIauto, 250);
-                        }
-                    });
-                }
-                $(document).ready(function() {
-                    setTimeout(getLiveHMIauto, 250);
+                let hmi_actual_weight, hmi_actual_stable, hmi_prev_stable, auto_submit;
+                let auto_html = `<span class="badge bg-gradient-secondary">Manual</span>`;
+                $('#auto-status').html(auto_html);
+                let sending_html = `<span class="badge bg-gradient-warning">Reading</span>`;
+                $('#sent-status').html(sending_html);
+                $("#auto-selection").change(function() {
+                    if ($(this).prop("checked") == true) {
+                        auto_submit = 1;
+                        auto_html = `<span class="badge bg-gradient-success">Auto</span>`;
+                        $('#auto-status').html(auto_html);
+                    } else {
+                        auto_submit = 0;
+                        auto_html = `<span class="badge bg-gradient-secondary">Manual</span>`;
+                        $('#auto-status').html(auto_html);
+                    }
                 });
-
 
                 function connect() {
                     var ws = new WebSocket('ws://localhost:1880/livedata');
@@ -593,30 +460,27 @@
                     ws.onmessage = function(e) {
                         // console.log('Message:', data);
                         // $('#actual-weight').html(data.data);
-                        let new_sku = skuAJAXWire || {!! App\Models\Hmi::with('sku')->where('sku_id', request('sku'))->first()
-                            ? json_encode(
-                                App\Models\Hmi::with('sku')->where('sku_id', request('sku'))->first(),
-                            )
-                            : 'null' !!};
-                        // console.log(JSON.parse(e.data));
+                        let new_sku = skuAJAXWire;
+                        // console.log(skuAJAXWire);
                         var raw = JSON.parse(e.data).weight;
                         var data = raw.split(' ');
                         var datas = data[0];
-                        var weight = Number(datas.split(',')[1]).toFixed(3);
-                        var stable = datas.split(',')[0] == 'ST' ? 1 : 0;
-                        let target = new_sku.sku ? new_sku.sku['target'] : 0;
-                        var th_H = new_sku.sku ? new_sku.sku['th_H'] : 0;
-                        var th_L = new_sku.sku ? new_sku.sku['th_L'] : 0;
-                        let percentage = (weight * 100 / target) - 100;
+                        hmi_actual_weight = Number(datas.split(',')[1]).toFixed(3);
+                        hmi_actual_stable = datas.split(',')[0] == 'ST' ? 1 : 0;
+                        let target = new_sku ? new_sku['target'] : 0;
+                        var th_H = new_sku ? new_sku['th_H'] : 0;
+                        var th_L = new_sku ? new_sku['th_L'] : 0;
+                        let percentage = (hmi_actual_weight * 100 / target) - 100;
                         let arrow = percentage < 0 ? 'down' : 'up';
-                        let color = weight <= th_L || weight >= th_H ? 'danger' : 'success';
+                        let color = hmi_actual_weight <= th_L || hmi_actual_weight >= th_H ? 'danger' :
+                            'success';
                         let timeout = JSON.parse(e.data).timeout;
                         var weight_status = 'UNDER';
-                        if (weight >= th_L && weight <= th_H) {
+                        if (hmi_actual_weight >= th_L && hmi_actual_weight <= th_H) {
                             weight_status = 'PASS';
-                        } else if (weight < th_L) {
+                        } else if (hmi_actual_weight < th_L) {
                             weight_status = 'UNDER';
-                        } else if (weight > th_H) {
+                        } else if (hmi_actual_weight > th_H) {
                             weight_status = 'OVER';
                         }
 
@@ -633,7 +497,7 @@
 
                         let stable_html =
                             `<span class="badge bg-gradient-danger">Unstable</span>`;
-                        if (stable) {
+                        if (hmi_actual_stable) {
                             stable_html =
                                 `<span class="badge bg-gradient-success">Stable</span>`;
                         }
@@ -645,11 +509,44 @@
                                 `<span class="badge bg-gradient-danger">Timeout</span>`;
                         }
 
-                        $('#actual-weight').html(weight);
+                        $('#actual-weight').html(hmi_actual_weight);
                         $('#percentage-from-target').html(percentage_html);
                         $('#weight-status').html(weight_status_html);
                         $('#stable-status').html(stable_html);
                         $('#timeout-status').html(timeout_html);
+
+                        if (auto_submit && hmi_actual_stable != hmi_prev_stable) {
+                            $.ajax({
+                                type: "POST",
+                                url: "{{ url('/submit_log') }}",
+                                data: {
+                                    _token: "{{ csrf_token() }}",
+                                    stable: hmi_actual_stable,
+                                    weight: hmi_actual_weight,
+                                    hmi: hmiWire || "{{ request('hmi') ?: null }}",
+                                },
+                                success: function(result) {
+                                    result = JSON.parse(result);
+                                    if (result['status'] == 'success') {
+                                        // alert(result['data']['weight']);
+                                        tableUpdated = true;
+                                        sending_html =
+                                            `<span class="badge bg-gradient-success">Sent</span>`;
+                                        $('#sent-status').html(sending_html);
+                                    } else {
+                                        alert('error');
+                                    }
+                                },
+                                error: function(result) {
+                                    alert('error');
+                                }
+                            });
+                            hmi_prev_stable = hmi_actual_stable;
+                        } else {
+                            let sending_html = `<span class="badge bg-gradient-warning">Reading</span>`;
+                            $('#sent-status').html(sending_html);
+
+                        }
                     };
 
                     ws.onclose = function(e) {
@@ -664,8 +561,34 @@
                         ws.close();
                     };
                 }
-
                 connect();
+
+
+                $("#submit-log").click(function(e) {
+                    e.preventDefault();
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ url('/submit_log') }}",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            stable: hmi_actual_stable,
+                            weight: hmi_actual_weight,
+                            hmi: hmiWire || "{{ request('hmi') ?: null }}",
+                        },
+                        success: function(result) {
+                            result = JSON.parse(result);
+                            if (result['status'] == 'success') {
+                                // alert(result['data']['weight']);
+                                tableUpdated = true;
+                            } else {
+                                // alert(result);
+                            }
+                        },
+                        error: function(result) {
+                            alert('error');
+                        }
+                    });
+                });
 
 
                 $(function() {
