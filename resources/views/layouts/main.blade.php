@@ -405,9 +405,9 @@
                     // console.log(message.updateQueue[0].payload);
                     if (message.updateQueue[0].payload.event === 'updateSkuAJAX') {
                         skuAJAXWire = message.updateQueue[0].payload.params[0];
-                        console.log(message.updateQueue[0].payload);
-                        console.log(message.updateQueue[0].payload.params[0]);
-                        console.log(skuAJAXWire);
+                        // console.log(message.updateQueue[0].payload);
+                        // console.log(message.updateQueue[0].payload.params[0]);
+                        // console.log(skuAJAXWire);
                         // console.log(message.updateQueue[0].payload);
                         // tableUpdated = true;
                     }
@@ -455,6 +455,7 @@
                         // ws.send(JSON.stringify({
                         //     //.... some message the I must send when I connect ....
                         // }));
+                        console.log('Socket connected');
                     };
 
                     ws.onmessage = function(e) {
