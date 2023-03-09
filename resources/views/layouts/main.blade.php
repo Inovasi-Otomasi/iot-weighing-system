@@ -80,7 +80,9 @@
     <script src="/assets/js/plugins/swiper-bundle.min.js" type="text/javascript"></script>
     <script src="/assets/js/all.js"></script>
     <script src="/assets/js/jquery.dataTables.min.js"></script>
-    <script src="/assets/js/dist/echarts.js"></script>
+    @if (Request::is('/'))
+        <script src="/assets/js/dist/echarts.js"></script>
+    @endif
     <script src="/assets/js/moment.min.js"></script>
     <script src="/assets/js/daterangepicker.min.js"></script>
     <script src="/assets/js/select2/select2.min.js"></script>
