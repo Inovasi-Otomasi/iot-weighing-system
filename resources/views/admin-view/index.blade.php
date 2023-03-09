@@ -40,6 +40,7 @@
                             <p class="text-sm text-secondary mb-1">SKU : <span id="sku-{{ $hmi->id }}"></p>
                             <p class="text-sm text-secondary mb-1">User : <span id="user-{{ $hmi->id }}"></p>
                             <p class="text-sm text-secondary mb-1">PIC : <span id="pic-{{ $hmi->id }}"></p>
+                            <p class="text-sm text-secondary mb-1">IP : <span id="ip-{{ $hmi->id }}"></p>
                         </div>
                     </div>
                 </div>

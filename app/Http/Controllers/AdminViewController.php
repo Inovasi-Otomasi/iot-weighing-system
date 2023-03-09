@@ -65,7 +65,8 @@ class AdminViewController extends Controller
                 'sku' => $hmi->sku ? $hmi->sku->sku_name : null,
                 'user' => $hmi->user,
                 'pic' => $hmi->pic ? $hmi->pic->pic_name : null,
-                'nik' => $hmi->pic ? $hmi->pic->nik : null
+                'nik' => $hmi->pic ? $hmi->pic->nik : null,
+                'ip_address' => $hmi->ip_address
             ];
             array_push($json_data, $data);
         }

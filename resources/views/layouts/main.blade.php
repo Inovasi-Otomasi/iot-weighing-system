@@ -742,6 +742,7 @@
                                 $('#sku-' + item.id).html(item.sku);
                                 $('#user-' + item.id).html(item.user);
                                 $('#pic-' + item.id).html(pic_detail);
+                                $('#ip-' + item.id).html(item.ip_address);
 
                             })
 
