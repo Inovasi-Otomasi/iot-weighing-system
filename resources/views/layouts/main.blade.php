@@ -533,18 +533,28 @@
                                         sending_html =
                                             `<span class="badge bg-gradient-success">Sent</span>`;
                                         $('#sent-status').html(sending_html);
+                                        flash_html = `
+                                        <div class="alert alert-success alert-dismissible text-center mt-5">
+                                            Data submitted (Weight : ${hmi_actual_weight}).
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true" class="text-dark">&times;</span>
+                                            </button>
+                                        </div>`;
+                                        $('#flash-message').html(flash_html);
+
                                     } else {
-                                        alert('error');
+                                        // alert('error');
                                     }
                                 },
                                 error: function(result) {
-                                    alert('error');
+                                    // alert('error');
                                 }
                             });
                             hmi_prev_stable = hmi_actual_stable;
                         } else {
                             let sending_html = `<span class="badge bg-gradient-warning">Reading</span>`;
                             $('#sent-status').html(sending_html);
+
 
                         }
                     };
@@ -580,12 +590,38 @@
                             if (result['status'] == 'success') {
                                 // alert(result['data']['weight']);
                                 tableUpdated = true;
+                                sending_html =
+                                    `<span class="badge bg-gradient-success">Sent</span>`;
+                                $('#sent-status').html(sending_html);
+                                flash_html = `
+                                        <div class="alert alert-success alert-dismissible text-center mt-5">
+                                            Data submitted (Weight : ${hmi_actual_weight}).
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true" class="text-dark">&times;</span>
+                                            </button>
+                                        </div>`;
+                                $('#flash-message').html(flash_html);
                             } else {
                                 // alert(result);
+                                flash_html = `
+                                        <div class="alert alert-danger alert-dismissible text-center mt-5">
+                                            Failed to submit.
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true" class="text-dark">&times;</span>
+                                            </button>
+                                        </div>`;
+                                $('#flash-message').html(flash_html);
                             }
                         },
                         error: function(result) {
-                            alert('error');
+                            flash_html = `
+                                        <div class="alert alert-danger alert-dismissible text-center mt-5">
+                                            Failed to submit.
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true" class="text-dark">&times;</span>
+                                            </button>
+                                        </div>`;
+                            $('#flash-message').html(flash_html);
                         }
                     });
                 });
